@@ -1,14 +1,11 @@
-const {Router} = require('express')
+const express = require('express')
 
-const router = Router()
+const router = express.Router()
 
 
 router.route()
     .get('/', (req,res)=>{
-        res.send('ok')
-    })
-    .all('/',(req,res)=>{
-        res.send('ok')
+        res.status(200)
     })
 
 
