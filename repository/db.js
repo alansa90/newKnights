@@ -26,7 +26,9 @@ const knightSchema = new mongoose.Schema({
 
 const knights = mongoose.model('knight', knightSchema)
 
-
+const getid = ()=>{
+    knights.find({$exists:{_id: true}})
+}
 
 const getDB = () =>{
     knights.find()
