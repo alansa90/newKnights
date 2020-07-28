@@ -1,11 +1,14 @@
-const { func } = require("@hapi/joi")
+const db = require('../repository/db')
+const { saveDB, getDB } = require('../repository/db')
+
+
 
 const sequence = {
-    _id: 1,
+    _id: 3,
     get id() {return this._id++}
 }
 
-const knights = []
+//const knights = []
 
 
 const mod = (keyattr) =>{
@@ -28,18 +31,18 @@ const mod = (keyattr) =>{
 
 //Create knights
 function saveKnight(knight){
-    if(!knight.id) knight.id = sequence.id
+    if(!knight.id) knight._id = sequence._id
     const kattr = knight.keyAttribute
     const attrs = knight.attributes[kattr]
     const weapon = knight.weapons
     const equipped= weapon.find(e => e.equipped === true)
     knight.exp = parseInt(10 + Math.floor(knight.age - 7) * Math.pow(22,1.45))
     knight.attack = 10 + mod(attrs) + equipped.mod
-    knights.push(knight)
+    saveDB(knight)
     return knight
 }
 //Update knights
-function updateKnight(knight){
+/*function updateKnight(knight){
     if(!knight.id) knight.id = sequence.id
     const knight_ = knights[knight.id] 
     knight_.nickname = knight.nickname
@@ -49,15 +52,17 @@ function updateKnight(knight){
 function getKnight(id){
     return knights[id] || {}
 }
-
+*/
 function getKnights(){
-    return Object.values(knights)
-}
+    return getDB()
+}/*
 //Delete knights
 function deleteKnight(id){
     const knight = knights[id]
     delete knights[id]
     return knight
 }
+*/
+module.exports = {saveKnight,getKnights}
 
-module.exports = {saveKnight, getKnight,getKnights,deleteKnight,updateKnight}
+//, getKnight,deleteKnight,updateKnight

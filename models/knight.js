@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi')
+const  mongoose = require('mongoose')
 
 
 const weaponSchema = Joi.object({
@@ -18,6 +19,8 @@ const attributeSchema = Joi.object().keys({
 }).required()
 
 const knightSchema = Joi.object().keys({
+    _id: Joi.number()
+    .required(),
     name: Joi.string()
     .min(3)
     .max(15)
