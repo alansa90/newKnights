@@ -1,15 +1,10 @@
-const express = require('express')
+const {Router} = require('express')
 
-const router = express.Router()
-
-
-router.route()
-    .get('/', (req,res)=>{
-        res.status(200)
-    })
+const router = Router()
 
 
-
+router.use(require('./knights'))
+router.use(require('./players'))
 
 module.exports = router
 
