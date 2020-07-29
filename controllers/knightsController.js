@@ -1,16 +1,16 @@
 const db = require('../repository/db')
-const { saveDB, getDB } = require('../repository/db')
+const { saveDB, getDB, getid } = require('../repository/db')
 
 
 verificaID = () =>{
-    const t = getDB()
-    for (i=0 ;t.length>i;i++ ){
-       if( t._id === sequence._id){
-           sequence._id++
+    const {_id} = getid()
+    console.log(_id)
+       if(_id){
+           _id++
        }else{
            return sequence._id
        }
-    }
+    
     
 }
 
@@ -42,7 +42,11 @@ const mod = (keyattr) =>{
 
 //Create knights
 function saveKnight(knight){
-    knight._id = verificaID()
+    if(knight._id){
+        knight._id = sequence._id
+    }else{
+        knight._id = verificaID()
+    }
     const kattr = knight.keyAttribute
     const attrs = knight.attributes[kattr]
     const weapon = knight.weapons

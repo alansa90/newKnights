@@ -21,17 +21,21 @@ const knightSchema = new mongoose.Schema({
         intelligence: Number,
         wisdom: Number,
         charisma: Number
-    }}, { _id: false },{colletion:'knight'},
+    },
+    exp: Number,
+    attack: Number
+},{colletion:'knight'},
 )
 
 const knights = mongoose.model('knight', knightSchema)
 
 const getid = ()=>{
-    knights.find({$exists:{_id: true}})
+    knights.find().sort({'_id': -1}).limit(1)
 }
 
 const getDB = () =>{
-    knights.find()
+    let data = knights.find({})
+    console.log(data)
 }
 
 const saveDB = (knight)=>{
@@ -41,4 +45,4 @@ const saveDB = (knight)=>{
 
 }
 
-module.exports = {saveDB, getDB}
+module.exports = {saveDB, getDB,getid}
