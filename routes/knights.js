@@ -1,8 +1,6 @@
 const {Router} = require('express')
 const knightsController = require('../controllers/knightsController')
 const model = require('../models/knight')
-const { knightSchema } = require('../models/knight')
-const knight = require('../models/knight')
 const bodyParser = require('body-parser')
 const { getKnights } = require('../controllers/knightsController')
 
@@ -12,7 +10,8 @@ router.use(bodyParser.json())
 
 router.route('/knights')
     .get((req,res)=>{
-        res.send(getKnights())
+        let data = getKnights()
+        res.send(data).json()
     })
     .post((req,res,next)=>{
         const {body = {}} = req

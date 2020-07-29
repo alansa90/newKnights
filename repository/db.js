@@ -35,16 +35,20 @@ const knightSchema = new mongoose.Schema({
 const knights = mongoose.model('knight', knightSchema)
 
 const getid = ()=>{
-    knights.find().sort({'_id': -1}).limit(1)
+    let data = knights.find().sort({'_id': -1}).limit(1)
+    console.log(data)
+    return data._id
 }
 
 const getDB = () =>{
-    let data = knights.find()
+    let data = knights.find({})
     console.log(data)
+    return data
+    
+    
 }
 
 const saveDB = (knight)=>{
-    console.log(knight)
     let data = new knights(knight)
     data.save()
 

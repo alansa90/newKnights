@@ -1,9 +1,10 @@
 const db = require('../repository/db')
 const { saveDB, getDB, getid } = require('../repository/db')
+const { get } = require('mongoose')
 
 
 verificaID = () =>{
-    const {_id} = getid()
+    const _id = getid()
     console.log(_id)
        if(_id){
            _id++
@@ -42,10 +43,11 @@ const mod = (keyattr) =>{
 
 //Create knights
 function saveKnight(knight){
-    if(knight._id){
+    let id = getid()
+    if(!id){
         knight._id = sequence._id
     }else{
-        knight._id = verificaID()
+        knight._id = id++
     }
     const kattr = knight.keyAttribute
     const attrs = knight.attributes[kattr]
@@ -69,7 +71,7 @@ function getKnight(id){
 }
 */
 function getKnights(){
-    return getDB()
+    getDB()
 }/*
 //Delete knights
 function deleteKnight(id){
