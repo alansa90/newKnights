@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/knights')
+const {USERNAME, PASSWORD} = require('../lib/www')
+
+
+const db_uri = 'mongodb+srv://'+USERNAME+':'+PASSWORD+'@cluster0.womts.mongodb.net/<dbname>?retryWrites=true&w=majority'
+
+mongoose.connect(db_uri)
 
 
 const knightSchema = new mongoose.Schema({
@@ -34,7 +39,7 @@ const getid = ()=>{
 }
 
 const getDB = () =>{
-    let data = knights.find({})
+    let data = knights.find()
     console.log(data)
 }
 

@@ -3,6 +3,8 @@ require('dotenv/config')
 
 const PORT = process.env.PORT
 const ADDRESS = process.env.ADDRESS
+const USERNAME = process.env.USERNAME
+const PASSWORD = process.env.PASSWORD
 
 
-module.exports = {PORT,ADDRESS}
+module.exports = {PORT,ADDRESS,USERNAME,PASSWORD}
