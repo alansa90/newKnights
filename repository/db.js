@@ -1,52 +1,20 @@
-const mongoose = require('mongoose')
-const {USERNAME, PASSWORD} = require('../lib/www')
-const { response } = require('express')
+global.db = require('./dbConnection')
 
 
-const db_uri = 'mongodb+srv://'+USERNAME+':'+PASSWORD+'@cluster0.womts.mongodb.net/<dbname>?retryWrites=true&w=majority'
 
-mongoose.connect(db_uri)
-
-
-const knightSchema = new mongoose.Schema({
-    _id: Number,
-    name: String,
-    age: Number,
-    nickname: String,
-    keyAttribute: String,
-    weapons:[{
-        name: String,
-        mod: Number,
-        attr: String,
-        equipped: Boolean
-    }],
-    attributes:{
-        strength: Number,
-        dexterity: Number,
-        constitution: Number,
-        intelligence: Number,
-        wisdom: Number,
-        charisma: Number
-    },
-    exp: Number,
-    attack: Number
-},{colletion:'knight'},
-)
-
-const knights = mongoose.model('knight', knightSchema)
-
-const getId = () =>{
-    return knights.find({}).lean().countDocuments()
+const list = ()=>{
+    global.db.findAll((e,docs)=>{
+            if(e){return console.log(e)}
+            return docs
+        })
+        
 }
 
-const getDB = () =>{
-    return knights.find({}).lean()
-      
-    
+const save = (knight)=>{
+    global.db.insert(knight,(err,result)=>{
+        if(err) {return console.log(err)}
+        return result
+    })
 }
 
-const saveDB = (knight)=>{
- 
-}
-
-module.exports = {saveDB, getDB,getId}
+module.exports = {save, list}

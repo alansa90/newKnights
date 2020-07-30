@@ -1,8 +1,6 @@
-const db = require('../repository/db')
 const {knightSchema} = require('../models/knight')
-const { saveDB, getDB, getId } = require('../repository/db')
-const { get } = require('mongoose')
-const { response } = require('express')
+const { list, save } = require('../repository/db')
+
 
 
 
@@ -37,9 +35,9 @@ function saveKnight(knight){
     const equipped= weapon.find(e => e.equipped === true)
     knight.exp = parseInt(10 + Math.floor(knight.age - 7) * Math.pow(22,1.45))
     knight.attack = 10 + mod(attrs) + equipped.mod
-    /*const value = knightSchema.validateAsync(knight).value
-    saveDB(value)
-    return value*/
+    const value = knightSchema.validate(knight).value
+    save(value)
+    return value
     
 }
 //Update knights
@@ -55,7 +53,8 @@ function getKnight(id){
 }
 */
 function getKnights(){
-    return getDB()
+    console.log(list())
+    return list()
     
 }/*
 //Delete knights
