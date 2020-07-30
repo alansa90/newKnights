@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const {USERNAME, PASSWORD} = require('../lib/www')
+const { response } = require('express')
 
 
 const db_uri = 'mongodb+srv://'+USERNAME+':'+PASSWORD+'@cluster0.womts.mongodb.net/<dbname>?retryWrites=true&w=majority'
@@ -34,24 +35,18 @@ const knightSchema = new mongoose.Schema({
 
 const knights = mongoose.model('knight', knightSchema)
 
-const getid = ()=>{
-    let data = knights.find().sort({'_id': -1}).limit(1)
-    console.log(data)
-    return data._id
+const getId = () =>{
+    return knights.find({}).lean().countDocuments()
 }
 
 const getDB = () =>{
-    let data = knights.find({})
-    console.log(data)
-    return data
-    
+    return knights.find({}).lean()
+      
     
 }
 
 const saveDB = (knight)=>{
-    let data = new knights(knight)
-    data.save()
-
+ 
 }
 
-module.exports = {saveDB, getDB,getid}
+module.exports = {saveDB, getDB,getId}

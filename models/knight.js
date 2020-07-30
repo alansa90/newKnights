@@ -19,8 +19,7 @@ const attributeSchema = Joi.object().keys({
 }).required()
 
 const knightSchema = Joi.object().keys({
-    _id: Joi.number()
-    .required(),
+    
     name: Joi.string()
     .min(3)
     .max(15)
