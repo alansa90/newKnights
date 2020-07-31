@@ -1,11 +1,5 @@
 const {knightSchema} = require('../models/knight')
-const { list, save } = require('../repository/db')
-
-
-
-
-
-//const knights = []
+const { listKnights, saveKnight, findKnight } = require('../repository/db')
 
 
 const mod = (keyattr) =>{
@@ -23,12 +17,8 @@ const mod = (keyattr) =>{
         return keyattr + 3
     }
 }
-
-
-
 //Create knights
-function saveKnight(knight){
-    
+function saveKnights(knight){  
     const kattr = knight.keyAttribute
     const attrs = knight.attributes[kattr]
     const weapon = knight.weapons
@@ -36,34 +26,28 @@ function saveKnight(knight){
     knight.exp = parseInt(10 + Math.floor(knight.age - 7) * Math.pow(22,1.45))
     knight.attack = 10 + mod(attrs) + equipped.mod
     const value = knightSchema.validate(knight).value
-    save(value)
-    return value
-    
+    saveKnight(value)  
 }
 //Update knights
-/*function updateKnight(knight){
-    if(!knight.id) knight.id = sequence.id
-    const knight_ = knights[knight.id] 
-    knight_.nickname = knight.nickname
-    return knight_
+function updateKnight(id){
+
 }
-//list: knights
+
 function getKnight(id){
-    return knights[id] || {}
+    return findKnight(id)
+
 }
-*/
+
 function getKnights(){
-    console.log(list())
-    return list()
-    
-}/*
+    return listKnights()
+}
 //Delete knights
 function deleteKnight(id){
     const knight = knights[id]
     delete knights[id]
     return knight
 }
-*/
-module.exports = {saveKnight,getKnights}
+
+module.exports = {saveKnights,getKnights,getKnight}
 
 //, getKnight,deleteKnight,updateKnight

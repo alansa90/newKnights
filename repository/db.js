@@ -1,20 +1,34 @@
-global.db = require('./dbConnection')
+const db = require('./dbConnection')
 
 
 
-const list = ()=>{
-    global.db.findAll((e,docs)=>{
-            if(e){return console.log(e)}
-            return docs
-        })
-        
+const listKnights = async ()=>{
+    try {
+        const docs = await db.findAllKnights()
+        return docs
+    } catch (error) {
+        console.log(error)
+    }
+    
 }
 
-const save = (knight)=>{
-    global.db.insert(knight,(err,result)=>{
-        if(err) {return console.log(err)}
-        return result
-    })
+const saveKnight = async(knight)=>{
+    try{
+        await db.insertKnight(knight)
+    }catch (err){
+        console.log(err)
+    }
+    
 }
 
-module.exports = {save, list}
+const findKnight = async (id)=>{
+    try{
+        const  knight = await db.findOne(id)
+        return knight
+    }catch (e){
+        console.log(e)
+    }
+}
+
+
+module.exports = {saveKnight, listKnights,findKnight}

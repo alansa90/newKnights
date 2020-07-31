@@ -1,22 +1,25 @@
-const mongoClient = require('mongodb').MongoClient
-const {MONGOURL} = require('../lib/www')
+const mongoose = require('mongoose')
+const {MONGOURI} = require('../lib/www')
+const {knightSchema} = require('../models/KnightModel')
 
+mongoose.connect(MONGOURI, {useNewUrlParser: true, useUnifiedTopology: true})
+const Knight = mongoose.model('knight', knightSchema)
 
-const dbUrl = MONGOURL
-
-mongoClient.connect(dbUrl, {useUnifiedTopology:true})
-    .then(conn => global.conn = conn.db('knightsGame'))
-    .catch(err => console.log(err))
-
-const findAll = (callback) =>{
-    global.conn.collection('knights').find({}).toArray(callback)
-    
+const findAllKnights = async () =>{
+    const res = await Knight.find()
+    return res   
 }
 
-const insert = (knight, callback)=>{
-    global.conn.collection('knights').insertOne(knight,callback)
+const insertKnight = async (knight)=>{
+    const k  = new Knight(knight)
+    await k.save()
+       
+}
+
+const findOne = async (id) =>{
+    const res = await Knight.findById(id)
+    return res
 }
 
 
-
-module.exports = {insert, findAll}
+module.exports = {insertKnight, findAllKnights, findOne}

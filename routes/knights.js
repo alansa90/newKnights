@@ -1,22 +1,23 @@
 const {Router} = require('express')
 const bodyParser = require('body-parser')
-const { getKnights, saveKnight } = require('../controllers/knightsController')
+const { getKnights, saveKnights, getKnight } = require('../controllers/knightsController')
 
 const router = Router()
 router.use(bodyParser.json())
-
-
-router.route('/knights')
-    .get((req,res)=>{
-        console.log(getKnights())
-        
-         
+router.use('/knights/:id',async (req,res,next)=>{
+    const knight = await getKnight(req.params.id)
+    return res.send(knight)})
+    
+    router.route('/knights')
+    .get(async(req,res)=>{
+        res.send(await getKnights())        
     })
-    .post((req,res,next)=>{
+    .post(async(req,res,next)=>{
         const {body = {}} = req
-        saveKnight(body)
-        res.redirect('/knights')
-        
+        await saveKnights(body)
+        return res
+        .status(201)      
+        .redirect('/knights')
     })
-    .put()
-module.exports = router
+    
+    module.exports = router
