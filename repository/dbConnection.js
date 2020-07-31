@@ -21,5 +21,9 @@ const findOne = async (id) =>{
     return res
 }
 
+const updateOne = async (id) =>{
+    const res = await Knight.updateOne(id)
+    return res
+}
 
-module.exports = {insertKnight, findAllKnights, findOne}
+module.exports = {insertKnight, findAllKnights, findOne,updateOne}

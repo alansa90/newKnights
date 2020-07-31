@@ -1,5 +1,5 @@
 const {knightSchema} = require('../models/knight')
-const { listKnights, saveKnight, findKnight } = require('../repository/db')
+const { listKnights, saveKnight, findKnight,updateKnight } = require('../repository/db')
 
 
 const mod = (keyattr) =>{
@@ -29,7 +29,8 @@ function saveKnights(knight){
     saveKnight(value)  
 }
 //Update knights
-function updateKnight(id){
+function updateKnights(id){
+    return updateKnight()
 
 }
 

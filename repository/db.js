@@ -30,5 +30,13 @@ const findKnight = async (id)=>{
     }
 }
 
+const updateKnight = async (id) =>{
+    try {
+        const knight = await db.updateOne(id)
+        return knight
+    }catch (err){
+        console.log(err)
+    }
+}
 
-module.exports = {saveKnight, listKnights,findKnight}
+module.exports = {saveKnight, listKnights,findKnight,updateKnight}
