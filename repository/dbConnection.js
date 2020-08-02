@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const {MONGOURI} = require('../lib/www')
 const {knightSchema} = require('../models/KnightModel')
+const { ReplSet } = require('mongodb')
 
 mongoose.connect(MONGOURI, {useNewUrlParser: true, useUnifiedTopology: true})
 const Knight = mongoose.model('knight', knightSchema)
@@ -21,9 +22,16 @@ const findOne = async (id) =>{
     return res
 }
 
-const updateOne = async (id) =>{
-    const res = await Knight.updateOne(id)
+const updateOne = async (id,body) =>{
+    const k = await Knight.findById(id)
+    const res = await Knight.updateOne({_id:k.id}, {nickname:body.nickname})
+    k.save()
     return res
 }
 
-module.exports = {insertKnight, findAllKnights, findOne,updateOne}
+const deleteOne = async(id) =>{
+    const res = await Knight.deleteOne({_id:id})
+    return res
+}
+
+module.exports = {insertKnight, findAllKnights, findOne,updateOne,deleteOne}

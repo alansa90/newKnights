@@ -30,13 +30,22 @@ const findKnight = async (id)=>{
     }
 }
 
-const updateKnight = async (id) =>{
+const updateKnight = async (id,body) =>{
     try {
-        const knight = await db.updateOne(id)
+        const knight = await db.updateOne(id, body)
         return knight
     }catch (err){
         console.log(err)
     }
 }
 
-module.exports = {saveKnight, listKnights,findKnight,updateKnight}
+const deleteKnight = async (id)=>{
+    try{
+        const knight = await db.deleteOne(id)
+        return knight
+    }catch (err){
+        console.log(err)
+    }
+}
+
+module.exports = {saveKnight, listKnights,findKnight,updateKnight,deleteKnight}

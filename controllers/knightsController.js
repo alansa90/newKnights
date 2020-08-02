@@ -1,5 +1,5 @@
-const {knightSchema} = require('../models/knight')
-const { listKnights, saveKnight, findKnight,updateKnight } = require('../repository/db')
+const {knightSchema, updateSchema} = require('../models/knight')
+const { listKnights, saveKnight, findKnight,updateKnight,deleteKnight } = require('../repository/db')
 
 
 const mod = (keyattr) =>{
@@ -29,8 +29,8 @@ function saveKnights(knight){
     saveKnight(value)  
 }
 //Update knights
-function updateKnights(id){
-    return updateKnight()
+function updateKnights(req){
+    return updateKnight(req.params.id,req.body)
 
 }
 
@@ -43,12 +43,11 @@ function getKnights(){
     return listKnights()
 }
 //Delete knights
-function deleteKnight(id){
-    const knight = knights[id]
-    delete knights[id]
-    return knight
+function deleteKnights(id){
+    return deleteKnight(id)
+  
 }
 
-module.exports = {saveKnights,getKnights,getKnight}
+module.exports = {saveKnights,getKnights,getKnight,updateKnights,deleteKnights}
 
 //, getKnight,deleteKnight,updateKnight
