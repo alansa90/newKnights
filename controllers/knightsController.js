@@ -29,9 +29,10 @@ function saveKnights(knight){
     saveKnight(value)  
 }
 //Update knights
-function updateKnights(req){
-    const validation = updateSchema.validate(req.body).value
-    return updateKnight(req.params.id, validation)
+ function updateKnights(req){
+    const validation =  updateSchema.validate(req.body).value
+    
+    updateKnight(req.params.id, validation)
 
 }
 

@@ -22,9 +22,9 @@ const findOne = async (id) =>{
     return res
 }
 
-const updateOne = async (id,body) =>{
+const updateOne = async (id,nick) =>{
     const k = await Knight.findById(id)
-    const res = await Knight.updateOne({_id:k.id}, {nickname:body.nickname})
+    const res = await Knight.updateOne({_id:k.id}, {nickname:nick.nickname})
     k.save()
     return res
 }

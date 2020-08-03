@@ -8,7 +8,7 @@ router.use(bodyParser.json())
 
 //list by id
 router.route('/knights/:id').get(async(req,res)=>{
-     const knight = await getKnight(req.params.id)
+    const knight = await getKnight(req.params.id)
     res.send(knight)
 })
 
@@ -24,14 +24,14 @@ router.route('/knights').post(async(req,res,next)=>{
 })
 //edit knights
 router.route('/knights/edit/:id')
-    .put(async (req, res)=>{
-    
+.put(async (req, res)=>{
     await updateKnights(req)
-    return res.redirect('/knights')
+    res.redirect('/knights')
+    
 })
-    .get(async(req,res)=>{
-        const knight = await getKnight(req.params.id)
-       res.send(knight)
+.get(async(req,res)=>{
+    const knight = await getKnight(req.params.id)
+    res.send(knight)
 })
 
 //delete knights

@@ -40,6 +40,6 @@ const knightSchema = Joi.object().keys({
 const updateSchema = Joi.object({
     nickname:Joi.string()
     .required()
-})
+}).options({ abortEarly: false})
 
 module.exports = {knightSchema,updateSchema}

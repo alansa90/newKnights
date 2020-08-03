@@ -31,12 +31,9 @@ const findKnight = async (id)=>{
 }
 
 const updateKnight = async (id,body) =>{
-    try {
-        const knight = await db.updateOne(id, body)
-        return knight
-    }catch (err){
-        console.log(err)
-    }
+    const knight = await db.updateOne(id, body)
+    return knight
+   
 }
 
 const deleteKnight = async (id)=>{
