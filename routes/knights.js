@@ -7,7 +7,7 @@ const router = Router()
 router.use(bodyParser.json())
 
 //list by id
-router.route('knights/:id').get(async(req,res)=>{
+router.route('/knights/:id').get(async(req,res)=>{
      const knight = await getKnight(req.params.id)
     res.send(knight)
 })
