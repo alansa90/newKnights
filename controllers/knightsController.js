@@ -1,7 +1,7 @@
 const {knightSchema, updateSchema} = require('../models/knight')
 const { listKnights, saveKnight, findKnight,updateKnight,deleteKnight } = require('../repository/db')
 
-
+// TODO: use req, res on all controllers calls
 const mod = (keyattr) =>{
     if(keyattr>=0 && keyattr <=8){
         return keyattr - 2
@@ -41,8 +41,9 @@ function getKnight(id){
 
 }
 
-function getKnights(){
-    return listKnights()
+async function getKnights(req, res){
+    const knights = await listKnights()
+    res.json(knights)
 }
 //Delete knights
 function deleteKnights(id){

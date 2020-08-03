@@ -1,8 +1,10 @@
+// TODO: rename this file to knights.js
 const mongoose = require('mongoose')
 const {MONGOURI} = require('../lib/www')
 const {knightSchema} = require('../models/KnightModel')
 const { ReplSet } = require('mongodb')
 
+// TODO: exports this in model
 mongoose.connect(MONGOURI, {useNewUrlParser: true, useUnifiedTopology: true})
 const Knight = mongoose.model('knight', knightSchema)
 
