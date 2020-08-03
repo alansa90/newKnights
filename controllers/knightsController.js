@@ -1,5 +1,5 @@
-const {knightSchema, updateSchema} = require('../models/knight')
-const { listKnights, saveKnight, findKnight,updateKnight,deleteKnight } = require('../repository/db')
+
+const { findAllKnights, insertKnight, findOne,updateOne,deleteOne } = require('../models/knights')
 
 // TODO: use req, res on all controllers calls
 const mod = (keyattr) =>{
@@ -18,39 +18,39 @@ const mod = (keyattr) =>{
     }
 }
 //Create knights
-function saveKnights(knight){  
-    const kattr = knight.keyAttribute
-    const attrs = knight.attributes[kattr]
-    const weapon = knight.weapons
+async function saveKnights(req,res){  
+    let {body = {}} = req
+    const kattr = body.keyAttribute
+    const attrs = body.attributes[kattr]
+    const weapon = body.weapons
     const equipped= weapon.find(e => e.equipped === true)
-    knight.exp = parseInt(10 + Math.floor(knight.age - 7) * Math.pow(22,1.45))
-    knight.attack = 10 + mod(attrs) + equipped.mod
-    const value = knightSchema.validate(knight).value
-    saveKnight(value)  
+    body.exp = parseInt(10 + Math.floor(body.age - 7) * Math.pow(22,1.45))
+    body.attack = 10 + mod(attrs) + equipped.mod
+    await insertKnight(body)  
+    return res.redirect('/knights')
 }
 //Update knights
- function updateKnights(req){
-    const validation =  updateSchema.validate(req.body).value
-    
-    updateKnight(req.params.id, validation)
+ async function updateKnight(req,res){
+    const knight =  await updateOne(req)
+    res.json(knight)
 
 }
 
-function getKnight(id){
-    return findKnight(id)
+async function getKnight(req, res){
+    const knight = await findOne(req.params.id)
+    res.json(knight)
 
 }
 
 async function getKnights(req, res){
-    const knights = await listKnights()
+    const knights = await findAllKnights()
     res.json(knights)
 }
 //Delete knights
-function deleteKnights(id){
-    return deleteKnight(id)
-  
+async function deleteKnights(req,res){
+    const result = await deleteOne(req.params.id)
+    res.json(result)
+
 }
 
-module.exports = {saveKnights,getKnights,getKnight,updateKnights,deleteKnights}
-
-//, getKnight,deleteKnight,updateKnight
+module.exports = {saveKnights, getKnights, updateKnight, deleteKnights, getKnight}
