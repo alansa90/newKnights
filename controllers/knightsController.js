@@ -1,7 +1,5 @@
+const { findAllKnights, insertKnight, findOne,updateOne,deleteOne, findHero } = require('../models/knights')
 
-const { findAllKnights, insertKnight, findOne,updateOne,deleteOne } = require('../models/knights')
-
-// TODO: use req, res on all controllers calls
 const mod = (keyattr) =>{
     if(keyattr>=0 && keyattr <=8){
         return keyattr - 2
@@ -43,8 +41,16 @@ async function getKnight(req, res){
 }
 
 async function getKnights(req, res){
-    const knights = await findAllKnights()
-    res.json(knights)
+    if(req.query.filter){
+        const q = req.query.filter
+        const result = await findHero(q)
+        res.json(result)
+    }else{
+        const knights = await findAllKnights()
+        res.json(knights)
+    }
+    
+    
 }
 //Delete knights
 async function deleteKnights(req,res){

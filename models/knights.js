@@ -26,7 +26,7 @@ const knightSchema = new mongoose.Schema({
     },
     exp:Number,
     attack:Number,
-    hero:Boolean
+    heroes:Boolean
     
 })
 
@@ -55,8 +55,14 @@ const updateOne =  (knight) =>{
 }
 
 const deleteOne = (id) =>{
-    const k = Knight.findByIdAndUpdate({_id:id},{hero:true},{upsert:true})
+    const k = Knight.findByIdAndUpdate({_id:id},{heroes:true},{upsert:true})
     return k
 }
 
-module.exports = {insertKnight, findAllKnights, findOne,updateOne,deleteOne}
+const findHero = (hero)=>{
+    const h = Knight.find({heroes:true})
+    return h
+}
+
+
+module.exports = {insertKnight, findAllKnights, findOne,updateOne,deleteOne,findHero}
