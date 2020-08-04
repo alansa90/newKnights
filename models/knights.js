@@ -59,7 +59,7 @@ const deleteOne = (id) =>{
     return k
 }
 
-const findHero = (hero)=>{
+const findHero = ()=>{
     const h = Knight.find({heroes:true})
     return h
 }

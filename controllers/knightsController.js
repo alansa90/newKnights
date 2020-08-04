@@ -42,8 +42,7 @@ async function getKnight(req, res){
 
 async function getKnights(req, res){
     if(req.query.filter){
-        const q = req.query.filter
-        const result = await findHero(q)
+        const result = await findHero()
         res.json(result)
     }else{
         const knights = await findAllKnights()
