@@ -1,11 +1,15 @@
+require('dotenv/config')
 const express = require('express')
-const {PORT, ADDRESS} = require('./lib/www')
 
 
 const app = express ()
-
 app.use(require('./routes'))
-app.set(PORT,ADDRESS)
+app.set({ address: process.env.ADDRESS, port: process.env.PORT })
+app.use(express.json())
+app.use(express.urlencoded( { extended: true }))
 
+process.on('uncaughtException', (err) => {
+  console.log(err)
+})
 
-app.listen((ADDRESS,PORT), ()=>{console.log(`Listen in port:${PORT}...`)})
+app.listen(() => { console.log(`Listen in port:${process.env.PORT}...`) })

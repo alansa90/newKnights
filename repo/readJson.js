@@ -13,4 +13,4 @@ async function read(){
         })
     return dados
 }
-module.exports = {read}
+module.exports = read

@@ -1,12 +1,8 @@
-const {read} = require('../repo/readJson')
+const { read } = require('../repo/readJson')
 
-
-
-async function getJson(req,res){
-        console.log(read())
+async function getJson (req, res) {
         const json = await read()
-        console.log(json)
         res.json(json)
 }
 
-module.exports ={getJson}
+module.exports ={ getJson }

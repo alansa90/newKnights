@@ -2,7 +2,7 @@ const { findAllKnights, insertKnight, findOne,updateOne,deleteOne, findHero } = 
 
 
 const mod = (keyattr) =>{
-    if(keyattr>=0 && keyattr <=8){
+    if(keyattr >= 0 && keyattr <= 8){
         return keyattr - 2
     }else if(keyattr === 10 || keyattr === 9){
         return keyattr - 1
@@ -17,9 +17,10 @@ const mod = (keyattr) =>{
     }
 }
 
-async function saveKnights(req,res){  
+async function saveKnights (req, res){  
+    console.log('adasd')
     try {
-        let {body = {}} = req
+        let { body = {} } = req
         const kattr = body.keyAttribute
         const attrs = body.attributes[kattr]
         const weapon = body.weapons
@@ -34,7 +35,7 @@ async function saveKnights(req,res){
     }
 }
 
-async function updateKnight(req,res){
+async function updateKnight(req, res){
     try {
         const knight =  await updateOne(req)
         res.json(knight)
@@ -81,15 +82,21 @@ async function getKnights(req, res){
     
 }
 //Delete knights
-async function deleteKnights(req,res){
+async function deleteKnights(req, res){
     try{
         const result = await deleteOne(req.params.id)
         res.json(result)
         
     }catch (err){
-        return `Erro: ${err}`
+        return `Error: ${err}`
     }
     
 }
 
-module.exports = {saveKnights, getKnights, updateKnight, deleteKnights, getKnight}
+module.exports = {
+    saveKnights,
+    getKnights,
+    updateKnight,
+    deleteKnights,
+    getKnight
+}
